@@ -93,4 +93,21 @@ window.addEventListener('keydown', e => {
   }
 );
 
+// Restart game
+playAgainBtn.addEventListener('click', () => {
+  // Empty the arrays
+  correctLetters.splice(0);
+  wrongLetters.splice(0);
+
+  // Get a new word
+  selectedWord = words[Math.floor(Math.random() * words.length)];
+  
+  // Update the UI
+  displayWord(); // Display the new word
+  updateWrongLettersEl(); // Remove the wrong letters and figure parts from previous game
+
+  // Remove popup
+  popup.style.display = 'none';
+})
+
 displayWord();
