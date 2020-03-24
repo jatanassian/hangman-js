@@ -1,6 +1,6 @@
 const wordEl = document.getElementById('word');
 const wrongLettersEl = document.getElementById('wrong-letters');
-const playAgainBtn = document.getElementById('play-again');
+const playAgainBtn = document.getElementById('play-btn');
 const popup = document.getElementById('popup-container');
 const notification = document.getElementById('notification-container');
 const finalMessage = document.getElementById('final-message');
@@ -35,7 +35,28 @@ function displayWord() {
 
 // Update the wrong letters
 function updateWrongLettersEl() {
-  console.log('Update wrong');
+  // Update and display wrong letters
+  wrongLettersEl.innerHTML = `
+    ${wrongLetters.length > 0 ? '<p>Wrong</p' : ''}
+    ${wrongLetters.map(letter => `<span>${letter}</span>`)}
+  `;
+
+  // Display as many parts as the length of the wrongLetters array
+  figureParts.forEach((part, index) => {
+    const errors = wrongLetters.length;
+
+    if (index < errors) {
+      part.style.display = 'block'; // "If 3 wrong letters, display 3 parts"
+    } else {
+      part.style.display = 'none';
+    }
+  });
+
+  // Check if game is lost
+  if (wrongLetters.length === figureParts.length) {
+    finalMessage.innerText = 'Oh no, you lost 🙁';
+    popup.style.display = 'flex';
+  }
 }
 
 // Show notification
